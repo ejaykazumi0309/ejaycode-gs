@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejay Code'gs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            display: flex;
+            transition: margin-left 0.3s;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .sidebar {
+            background: #007bff; /* Blue background */
+            color: white;
+            padding: 20px;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: -250px; /* Initially hidden */
+            visibility: hidden; /* Hide visibility */
+            opacity: 0; /* Make invisible */
+            transition: left 0.3s, visibility 0.3s, opacity 0.3s;
+        }
+        .sidebar.active {
+            left: 0; /* Show the sidebar */
+            visibility: visible; /* Make it visible */
+            opacity: 1; /* Make it fully opaque */
+        }
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .sidebar p {
+            font-size: 1em;
+            line-height: 1.5;
+        }
+        .container {
+            flex: 1;
+            margin-left: 20px;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .text-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fafafa;
+            overflow: auto;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .copy-button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+        .toggle-button {
+            position: fixed;
+            left: 10px;
+            top: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .hamburger {
+            width: 30px;
+            height: 3px;
+            background-color: #007bff; /* Blue color for hamburger lines */
+            display: block;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="toggle-button" onclick="toggleSidebar()">
+        <div class="hamburger"></div>
+        <div class="hamburger"></div>
+        <div class="hamburger"></div>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <h2>About the Owner</h2>
+        <p>Name: Ejay</p>
+        <p>Email: Secretong malupit</p>
+        <p>Bio: Sharing is caring hehe.</p>
+    </div>
+
+    <div class="container">
+        <h1>Ejay Code'gs</h1>
+
+        <div class="text-section" id="text1">
+            <div class="section-title">Section 1 Title</div>
+            <p>This is the first section of text that anyone can copy!</p>
+            <button class="copy-button" onclick="copyText('text1')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text2">
+            <div class="section-title">Exercises B (Salary)</div>
+            <pre>
+import java.util.*;
+
+public class ExercisesB {
+    public static void main(String[] args){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Your Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter Your Worked Days: ");
+        int wday = scanner.nextInt();
+
+        System.out.print("Enter Your Rate Per Day: ");
+        double rate = scanner.nextDouble();
+
+        System.out.print("Enter Your GSIS Deduction: ");
+        double gdeduction = scanner.nextDouble();
+
+        System.out.print("Enter Your PhilHealth Deduction: ");
+        double pdeduction = scanner.nextDouble();
+
+        double salary = (wday*rate)-(pdeduction+gdeduction);
+
+        if(salary >= 10000){
+            System.out.println("Hi "+name+", your salary "+salary+", your salary is above minimum");
+        }
+        else{
+            System.out.println("Hello "+name+", your salary "+salary+", your salary is below minimum");
+        }
+
+    }
+}
+            </pre>
+            <button class="copy-button" onclick="copyText('text2')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text3">
+            <div class="section-title">Vowel or Consonant</div>
+                          <pre>     
+import java.util.Scanner;
+
+public class vowelorconsonant {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Input an alphabet: ");
+        char abc = scanner.next().charAt(0);
+        
+     
+        char sLetter = Character.toLowerCase(abc);
+
+       
+        if (sLetter == 'a' || sLetter == 'e' || sLetter == 'i' || 
+        sLetter == 'o' || sLetter == 'u') {
+            System.out.println("Input letter is Vowel");
+        } else if (Character.isLetter(sLetter)) {
+            System.out.println("Input letter is Consonant");
+        } else {
+            System.out.println("Invalid input. Please enter a single alphabet character.");
+        }
+
+        scanner.close();
+    }
+}
+
+                            </pre>
+            <button class="copy-button" onclick="copyText('text3')">Copy Text</button>
+        </div>
+        <div class="text-section" id="text4">
+            <div class="section-title">Section 4 Title</div>
+            <p>This is the fourth section. Feel free to copy this text as well!</p>
+            <button class="copy-button" onclick="copyText('text4')">Copy Text</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function copyText(textId) {
+            const textElement = document.getElementById(textId).querySelector('pre');
+            const range = document.createRange();
+            range.selectNode(textElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Text copied to clipboard!');
+        }
+    </script>
+
+</body>
+</html>
