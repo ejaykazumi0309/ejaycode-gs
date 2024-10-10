@@ -110,17 +110,20 @@
 
     <div class="sidebar" id="sidebar">
         <h2>About the Owner</h2>
-        <p>Name: Ejay</p>
+        <p>Name: Ejay Rosete</p>
         <p>Email: Secretong malupit</p>
-        <p>Bio: Sharing is caring hehe.</p>
+        <p>Bio: Sharing is caring hehe. Palihog ayaw e abuse aron goods ang tanan ayaw gamita sa pag cheat
+            gamita ni para maka study ka ayaw pag binuang kay buto ng likod nimo ron HAHHA
+        </p>
+        <p>TIPS: Basaha ninyo ang module tapos e try ug solve diha namo mo gamit ani pag wala na jud mo kabalo pag unsaon kana lng salamat ma nigga</p>
     </div>
 
     <div class="container">
         <h1>Ejay Code'gs</h1>
 
         <div class="text-section" id="text1">
-            <div class="section-title">BLANK SA WAIT LNG</div>
-            <p>WAIT MY IDOL</p>
+            <div class="section-title">WA SAY TITLE</div>
+            <p>WAIT KA LNG MY IDOL</p>
             <button class="copy-button" onclick="copyText('text1')">Copy Text</button>
         </div>
 
@@ -165,14 +168,78 @@ public class ExercisesB {
         </div>
 
         <div class="text-section" id="text3">
-            <div class="section-title">BLANK SA HAHA</div>
-                          <pre>     WAIT MY IDOL
+            <div class="section-title">Teenager or Not!</div>
+                          <pre>     
+                            import java.util.Scanner;
+
+                            public class vowelorconsonant {
+                                public static void main(String[] args) {
+                                    Scanner scanner = new Scanner(System.in);
+                                   
+                                    System.out.println("Enter Your First Name: ");
+                                    String fName = scanner.nextLine();
+                            
+                                    System.out.println("Enter Your Middle Name: ");
+                                    String mName = scanner.nextLine();
+                            
+                                    System.out.println("Enter Your Last Name: ");
+                                    String lName = scanner.nextLine();
+                            
+                                    System.out.println("Enter Your Gender Name: ");
+                                    String gender = scanner.nextLine();
+                            
+                                    System.out.println("Enter Your Age Name: ");
+                                    int age = scanner.nextInt();
+                            
+                                    if(age >= 19){
+                                        System.out.println(fName+" "+mName+" "+lName+", is not a teenager anymore");
+                                    }
+                                    else{
+                                        System.out.println(fName+" "+mName+" "+lName+", is a teenager");
+                            
+                                        //KINI NA METHOD KAY PARA NI MADETECT IF EVER TEENAGER OR Minor
+                                        //E REMOVE LNG ANG */ para mag work ug remove ang SOP sa TAAS noice
+                                        /*
+                                         * if(age >= 13){
+                                         * System.out.println(fName+" "+mName+" "+lName+", is a teenager");
+                                         * } else{
+                                         * System.out.println(fName+" "+mName+" "+lName+", is a Minor");
+                                         * }
+                                         */
+                                    }
+                                }
+                            }
+                            
+
                             </pre>
             <button class="copy-button" onclick="copyText('text3')">Copy Text</button>
         </div>
         <div class="text-section" id="text4">
-            <div class="section-title">BLANK SA WAIT LNG</div>
-            <p>WAIT MY IDOl=L</p>
+            <div class="section-title">Vowel & Consonant</div>
+            <pre>
+                
+  import java.util.*;
+
+public class VowelOrConsonant{
+    public static void main(String[] args){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Input an Alphabet: ");
+        char jaye = scanner.next().charAt(0);
+        jaye = Character.toLowerCase(jaye);
+
+        if(jaye == ('a') || jaye == ('e') || jaye == ('i') 
+        || jaye == ('o') || jaye == ('u')){
+            System.out.println("Input Letter is Vowel");
+        }
+        else{
+            System.out.print("Input Letter is Consonant");
+        }
+    }
+}
+
+            </pre>
             <button class="copy-button" onclick="copyText('text4')">Copy Text</button>
         </div>
     </div>
