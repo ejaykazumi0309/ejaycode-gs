@@ -20,21 +20,21 @@
             text-align: center;
         }
         .sidebar {
-            background: #007bff; /* Blue background */
+            background: #007bff;
             color: white;
             padding: 20px;
             width: 250px;
             height: 100vh;
             position: fixed;
-            left: -250px; /* Initially hidden */
-            visibility: hidden; /* Hide visibility */
-            opacity: 0; /* Make invisible */
+            left: -250px;
+            visibility: hidden;
+            opacity: 0;
             transition: left 0.3s, visibility 0.3s, opacity 0.3s;
         }
         .sidebar.active {
-            left: 0; /* Show the sidebar */
-            visibility: visible; /* Make it visible */
-            opacity: 1; /* Make it fully opaque */
+            left: 0;
+            visibility: visible;
+            opacity: 1;
         }
         .sidebar h2 {
             font-size: 1.5em;
@@ -64,6 +64,11 @@
         .section-title {
             font-size: 1.5em;
             margin-bottom: 10px;
+            position: sticky;
+            top: 0;
+            background: #fafafa; /* Match background */
+            z-index: 1; /* Ensure it's above content */
+            padding: 10px 0; /* Add some padding for aesthetics */
         }
         .copy-button {
             margin-top: 10px;
@@ -93,7 +98,7 @@
         .hamburger {
             width: 30px;
             height: 3px;
-            background-color: #007bff; /* Blue color for hamburger lines */
+            background-color: black; /* Change to black */
             display: block;
             margin: 5px auto;
             transition: all 0.3s ease;
@@ -115,15 +120,45 @@
         <p>Bio: Sharing is caring hehe. Palihog ayaw e abuse aron goods ang tanan ayaw gamita sa pag cheat
             gamita ni para maka study ka ayaw pag binuang kay buto ng likod nimo ron HAHHA
         </p>
-        <p>TIPS: Basaha ninyo ang module tapos e try ug solve diha namo mo gamit ani pag wala na jud mo kabalo pag unsaon kana lng salamat ma nigga</p>
+        <p>TIPS: Basaha ninyo ang module tapos e try ug solve diha namo mo gamit ani pag wala na jud mo kabalo pag unsaon kana lng salamat ma </p>
     </div>
 
     <div class="container">
         <h1>Ejay Code'gs</h1>
 
+        <!-- Copy Box Template Start -->
         <div class="text-section" id="text1">
-            <div class="section-title">WA SAY TITLE</div>
-            <p>WAIT KA LNG MY IDOL</p>
+            <div class="section-title">ExercisesA (Average)</div>
+            <pre>
+    import java.util.*;
+
+    public class ExercisesA {
+        public static void main(String[] args){
+                
+       Scanner scanner = new Scanner(System.in);
+                
+       System.out.print("Enter Your Name: ");
+        String name = scanner.nextLine();
+                
+        System.out.print("Enter Your Prelim Score: ");
+        int prelim = scanner.nextInt();
+                
+        System.out.print("Enter Your MidTerm Score: ");
+        int midterm = scanner.nextInt();
+                
+        System.out.print("Enter Your Final Score: ");
+        int finalscore = scanner.nextInt();
+                
+        double average = (prelim * 0.3)+(midterm * 0.3)+(finalscore * 0.4);
+                
+        String remarks = (average >= 75) ? "Congratulations "+name+", you passed with an average of "+average :
+                                        "Sorry "+name+", you failed with an average of "+average;
+                
+        System.out.println(remarks);
+                    }
+                }
+
+            </pre>
             <button class="copy-button" onclick="copyText('text1')">Copy Text</button>
         </div>
 
@@ -154,12 +189,11 @@ public class ExercisesB {
 
         double salary = (wday*rate)-(pdeduction+gdeduction);
 
-        if(salary >= 10000){
-            System.out.println("Hi "+name+", your salary "+salary+", your salary is above minimum");
-        }
-        else{
-            System.out.println("Hello "+name+", your salary "+salary+", your salary is below minimum");
-        }
+        String remarks = (salary >= 10000) ? "Hi "+name+", your salary "+salary+", your salary is above minimum" :
+                                        "Hello "+name+", your salary "+salary+", your salary is below minimum";
+
+        
+            System.out.println(remarks);
 
     }
 }
@@ -169,79 +203,119 @@ public class ExercisesB {
 
         <div class="text-section" id="text3">
             <div class="section-title">Teenager or Not!</div>
-                          <pre>     
-                            import java.util.Scanner;
+            <pre>     
+import java.util.Scanner;
 
-                            public class vowelorconsonant {
-                                public static void main(String[] args) {
-                                    Scanner scanner = new Scanner(System.in);
-                                   
-                                    System.out.println("Enter Your First Name: ");
-                                    String fName = scanner.nextLine();
-                            
-                                    System.out.println("Enter Your Middle Name: ");
-                                    String mName = scanner.nextLine();
-                            
-                                    System.out.println("Enter Your Last Name: ");
-                                    String lName = scanner.nextLine();
-                            
-                                    System.out.println("Enter Your Gender Name: ");
-                                    String gender = scanner.nextLine();
-                            
-                                    System.out.println("Enter Your Age Name: ");
-                                    int age = scanner.nextInt();
-                            
-                                    if(age >= 19){
-                                        System.out.println(fName+" "+mName+" "+lName+", is not a teenager anymore");
-                                    }
-                                    else{
-                                        System.out.println(fName+" "+mName+" "+lName+", is a teenager");
-                            
-                                        //KINI NA METHOD KAY PARA NI MADETECT IF EVER TEENAGER OR Minor
-                                        //E REMOVE LNG ANG */ para mag work ug remove ang SOP sa TAAS noice
-                                        /*
-                                         * if(age >= 13){
-                                         * System.out.println(fName+" "+mName+" "+lName+", is a teenager");
-                                         * } else{
-                                         * System.out.println(fName+" "+mName+" "+lName+", is a Minor");
-                                         * }
-                                         */
-                                    }
-                                }
-                            }
-                            
-
-                            </pre>
+public class vowelorconsonant {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Your First Name: ");
+        String fName = scanner.nextLine();
+        System.out.println("Enter Your Middle Name: ");
+        String mName = scanner.nextLine();
+        System.out.println("Enter Your Last Name: ");
+        String lName = scanner.nextLine();
+        System.out.println("Enter Your Gender Name: ");
+        String gender = scanner.nextLine();
+        System.out.println("Enter Your Age Name: ");
+        int age = scanner.nextInt();
+        if(age >= 19){
+            System.out.println(fName+" "+mName+" "+lName+", is not a teenager anymore");
+        }
+        else{
+            System.out.println(fName+" "+mName+" "+lName+", is a teenager");
+        }
+    }
+}
+            </pre>
             <button class="copy-button" onclick="copyText('text3')">Copy Text</button>
         </div>
+
         <div class="text-section" id="text4">
             <div class="section-title">Vowel & Consonant</div>
             <pre>
-                
-  import java.util.*;
+import java.util.*;
 
-public class VowelOrConsonant{
-    public static void main(String[] args){
-
+public class VowelOrConsonant {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Input an Alphabet: ");
         char jaye = scanner.next().charAt(0);
         jaye = Character.toLowerCase(jaye);
-
-        if(jaye == ('a') || jaye == ('e') || jaye == ('i') 
-        || jaye == ('o') || jaye == ('u')){
+        if (jaye == 'a' || jaye == 'e' || jaye == 'i' || jaye == 'o' || jaye == 'u') {
             System.out.println("Input Letter is Vowel");
-        }
-        else{
+        } else {
             System.out.print("Input Letter is Consonant");
         }
     }
 }
-
             </pre>
             <button class="copy-button" onclick="copyText('text4')">Copy Text</button>
         </div>
+
+        <div class="text-section" id="text5">
+            <div class="section-title">Mall Entry Check</div>
+            <pre>
+import java.util.*;
+
+public class Mall {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Your First Name: ");
+        String fname = scanner.nextLine();
+        System.out.print("Enter Your Middle Name: ");
+        String mname = scanner.nextLine();
+        System.out.print("Enter Your Last Name: ");
+        String lname = scanner.nextLine();
+        System.out.print("Enter Your Gender: ");
+        String gender = scanner.nextLine();
+        System.out.print("Enter Your Age: ");
+        int age = scanner.nextInt();
+        System.out.print("Are you fully vaccinated? (yes/no): ");
+        String vac = scanner.next();
+        boolean good = (age >= 18 && age <= 59) && vac.equalsIgnoreCase("yes");
+        if(good) {
+            System.out.println("Hello "+fname+", you are allowed to enter the mall");
+        } else {
+            System.out.println("Sorry "+fname+" you are not allowed to enter the mall");
+        }
+    }
+}
+            </pre>
+            <button class="copy-button" onclick="copyText('text5')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text6">
+            <div class="section-title">BLANK PA WAIT LNG</div>
+            <pre></pre>
+            <button class="copy-button" onclick="copyText('text6')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text7">
+            <div class="section-title">BLANK PA WAIT LNG</div>
+            <pre></pre>
+            <button class="copy-button" onclick="copyText('text7')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text8">
+            <div class="section-title">BLANK PA WAIT LNG</div>
+            <pre></pre>
+            <button class="copy-button" onclick="copyText('text8')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text9">
+            <div class="section-title">BLANK PA WAIT LNG</div>
+            <pre></pre>
+            <button class="copy-button" onclick="copyText('text9')">Copy Text</button>
+        </div>
+
+        <div class="text-section" id="text10">
+            <div class="section-title">BLANK PA WAIT LNG</div>
+            <pre></pre>
+            <button class="copy-button" onclick="copyText('text10')">Copy Text</button>
+        </div>
+        <!-- Copy Box Template End -->
+
     </div>
 
     <script>
