@@ -461,19 +461,11 @@ public class Main{
     
 
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the current pathname
-    const pathname = window.location.pathname;
 
-    // Check if the pathname is "/" or if the referrer is not from "index.html"
-    if (pathname === "/" || (!document.referrer || !document.referrer.includes("index.html"))) {
-        // Redirect to "index.html"
-        window.location.href = "index.html";
-    }
-});
-
-        
-        
+        if (!document.referrer || !document.referrer.includes("index.html")) {
+            window.location.href = "index.html";
+       } 
+                   
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
