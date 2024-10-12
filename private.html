@@ -462,10 +462,11 @@ public class Main{
 
     <script>
         // Check if the document referrer is empty or does not contain "index.html"
-if (!document.referrer || !document.referrer.includes("index.html")) {
-    // Redirect to "index.html"
-    window.location.href = "index.html";
-}
+document.addEventListener("DOMContentLoaded", function() {
+    if (!document.referrer || !document.referrer.includes("index.html")) {
+        window.location.href = "index.html";
+    }
+});
 
         
         
