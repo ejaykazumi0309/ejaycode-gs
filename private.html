@@ -461,9 +461,13 @@ public class Main{
     
 
     <script>
-        // Check if the document referrer is empty or does not contain "index.html"
 document.addEventListener("DOMContentLoaded", function() {
-    if (!document.referrer || !document.referrer.includes("index.html")) {
+    // Get the current pathname
+    const pathname = window.location.pathname;
+
+    // Check if the pathname is "/" or if the referrer is not from "index.html"
+    if (pathname === "/" || (!document.referrer || !document.referrer.includes("index.html"))) {
+        // Redirect to "index.html"
         window.location.href = "index.html";
     }
 });
