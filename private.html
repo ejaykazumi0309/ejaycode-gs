@@ -437,6 +437,10 @@ public class Mall {
     
 
     <script>
+        if (document.referrer === "" || !document.referrer.includes("index.html")) {
+            window.location.href = "index.html";
+        }
+        
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
@@ -476,9 +480,7 @@ function closeQuizModal() {
     modal.style.display = 'none';
 }
 
-        if (document.referrer === "" || !document.referrer.includes("index.html")) {
-            window.location.href = "index.html";
-        }
+        
 
     </script>
 
