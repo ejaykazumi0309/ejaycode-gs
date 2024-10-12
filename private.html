@@ -455,6 +455,15 @@ public class Mall {
             alert('Text copied to clipboard! Thanks for using Ejay Codegs');
         }
 
+        window.onload = function() {
+            if (sessionStorage.getItem('canAccessPrivate') !== 'true') {
+                window.location.href = 'index.html'; // Redirect to index.html
+            } else {
+                // Optionally, clear the flag if you want to restrict access on page refresh
+                sessionStorage.removeItem('canAccessPrivate');
+            }
+        };
+
         function closeModal() {
             const modal = document.getElementById('welcomeModal');
             modal.style.display = 'none';
