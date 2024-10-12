@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E Code'gs</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Added FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -28,7 +28,7 @@
             width: 250px;
             height: 100vh;
             position: fixed;
-            left: -250px; /* Initially hidden */
+            left: -250px;
             visibility: hidden;
             opacity: 0;
             transition: left 0.3s, visibility 0.3s, opacity 0.3s;
@@ -48,12 +48,12 @@
             line-height: 1.5;
         }
         .social-icons {
-            margin-top: 20px; /* Space between content and icons */
+            margin-top: 20px;
         }
         .social-icons a {
             color: #007bff;
             margin-right: 15px;
-            font-size: 1.5em; /* Adjust size as needed */
+            font-size: 1.5em;
             text-decoration: none;
         }
         .container {
@@ -64,7 +64,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             transition: margin-left 0.3s;
-            margin-left: 20px; /* Default margin */
+            margin-left: 20px;
         }
         .text-section {
             margin: 20px 0;
@@ -119,7 +119,7 @@
         }
         /* Modal Styles */
         .modal {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
             z-index: 1001;
             left: 0;
@@ -127,7 +127,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
+            background-color: rgba(0, 0, 0, 0.7);
         }
         .modal-content {
             background-color: #343a40;
@@ -150,86 +150,137 @@
             text-decoration: none;
             cursor: pointer;
         }
+        /* Passcode Modal Styles */
+        .passcode-modal-content {
+            background-color: #343a40;
+            padding: 20px;
+            border-radius: 8px;
+            color: #f8f9fa;
+        }
+        .passcode-modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #495057;
+            border-radius: 5px;
+        }
+        .passcode-modal-content button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .passcode-modal-content button:hover {
+            background-color: #0056b3;
+        }
+        .passcode-message {
+            margin-top: 10px;
+        }
 
         .quiz-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 60px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: bounce 2s infinite;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .quiz-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .quiz-button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .advance-button {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 80px; /* Increased width for text */
-    height: 60px;
-    background-color: #007bff; /* Bright blue */
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 30px; /* Slightly less round */
-    cursor: pointer;
-    font-size: 1.2em; /* Slightly larger text */
-    font-weight: bold; /* Bold text */
-    outline: none; /* Remove outline */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Increased shadow for depth */
-    z-index: 1000; /* Ensure the button is above all other content */
-    animation: bounce 2s infinite; /* Bouncing animation */
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.quiz-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
-}
-
-.quiz-button:active {
-    transform: scale(0.95); /* Slightly shrink on click */
-}
-
-/* Keyframes for bounce animation */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px); /* Upwards bounce */
-    }
-    60% {
-        transform: translateY(-5px); /* Slight downward bounce */
-    }
-}
-
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
-}
-
-.modal-content {
-    background-color: #343a40;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    border-radius: 8px;
-    color: #f8f9fa;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+    border-radius: 5px;
+    font-size: 1em;
     font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+    z-index: 1000;
 }
 
-.close:hover,
-.close:focus {
-    color: #f8f9fa;
-    text-decoration: none;
-    cursor: pointer;
+.advance-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.advance-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.advance-button {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .advance-button {
+        padding: 8px 15px; /* Smaller padding for smaller screens */
+        font-size: 0.9em;   /* Smaller font size */
+    }
+}
+
+/* Additional style for h1 title */
+h1 {
+    margin-top: 80px; /* Adjust the margin to avoid overlap with the button */
 }
 
 
@@ -246,12 +297,12 @@
     <div class="sidebar" id="sidebar">
         <h2>About the Owner</h2>
         <p>Name: Ejay Rosete</p>
-        <p>Email: Confidential</p> <!-- Updated for privacy -->
+        <p>Email: Confidential</p>
         <p>Bio: Sharing is caring!</p>
         <p>TIPS: Basaha ang module/ppt then e try ug solve kung d nimo makaya then sabta ang code dria ayaw lng basta kay copy and paste!</p>
         <p></p>
         <p>Credits: AI For JavaScript para mo gana ang Copy Text button and Side Panel the rest is ako na specialy code and Design Thanks!</p>
-        <div class="social-icons"> <!-- Social icons added here -->
+        <div class="social-icons">
             <a href="https://www.facebook.com/ejay.rosete.14/" target="_blank">
                 <i class="fab fa-facebook"></i>
             </a>
@@ -271,23 +322,14 @@
     </div>
 
     <div class="container">
+        <button class="advance-button" onclick="startPasscodeModal()">Advance Server</button>
         <h1>Ejay Code'gs</h1>
 
-        <button class="quiz-button" onclick="startQuiz()">Quiz</button>
-
-        <div id="quizModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeQuizModal()">&times;</span>
-                <h2>Quiz Coming Soon!</h2>
-                <p>Stay tuned!</p>
-            </div>
-        </div>
         
 
-        <h2>Lesson 6 Part III</h1>
-        <!-- Copy Box Template Start -->
+        <h2>Lesson 6</h2>
         <div class="text-section" id="text1">
-            <div class="section-title">Exercises A (Average)</div>
+            <div class="section-title">Exercises A (Grading)</div>
             <pre>
 import java.util.*;
 
@@ -340,125 +382,58 @@ public class ExercisesB {
             <button class="copy-button" onclick="copyText('text2')">Copy Text</button>
         </div>
 
-        <h2>Lesson 7</h1>
+        <h2>Lesson 7</h2>
         <div class="text-section" id="text3">
             <div class="section-title">Teenager or Not!</div>
-            <pre>     
-import java.util.Scanner;
-
-public class vowelorconsonant {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Your First Name: ");
-        String fName = scanner.nextLine();
-        System.out.println("Enter Your Middle Name: ");
-        String mName = scanner.nextLine();
-        System.out.println("Enter Your Last Name: ");
-        String lName = scanner.nextLine();
-        System.out.println("Enter Your Gender Name: ");
-        String gender = scanner.nextLine();
-        System.out.println("Enter Your Age Name: ");
-        int age = scanner.nextInt();
-        if(age >= 19){
-            System.out.println(fName+" "+mName+" "+lName+", is not a teenager anymore");
-        }
-        else{
-            System.out.println(fName+" "+mName+" "+lName+", is a teenager");
-        }
-    }
-}
-            </pre>
+            <pre>SOON - AVALABLE NOW ON ADVANCE SERVER</pre>
             <button class="copy-button" onclick="copyText('text3')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text4">
             <div class="section-title">Vowel & Consonant</div>
-            <pre>
-import java.util.*;
-
-public class VowelOrConsonant {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Input an Alphabet: ");
-        char jaye = scanner.next().charAt(0);
-        jaye = Character.toLowerCase(jaye);
-        if (jaye == 'a' || jaye == 'e' || jaye == 'i' || jaye == 'o' || jaye == 'u') {
-            System.out.println("Input Letter is Vowel");
-        } else {
-            System.out.print("Input Letter is Consonant");
-        }
-    }
-}
-            </pre>
+            <pre>SOON - AVALABLE NOW ON ADVANCE SERVER</pre>
             <button class="copy-button" onclick="copyText('text4')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text5">
             <div class="section-title">Mall Entry Check</div>
-            <pre>
-import java.util.*;
-
-public class Mall {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Your First Name: ");
-        String fname = scanner.nextLine();
-        System.out.print("Enter Your Middle Name: ");
-        String mname = scanner.nextLine();
-        System.out.print("Enter Your Last Name: ");
-        String lname = scanner.nextLine();
-        System.out.print("Enter Your Gender: ");
-        String gender = scanner.nextLine();
-        System.out.print("Enter Your Age: ");
-        int age = scanner.nextInt();
-        System.out.print("Are you fully vaccinated? (yes/no): ");
-        String vac = scanner.next();
-        boolean good = (age >= 18 && age <= 59) && vac.equalsIgnoreCase("yes");
-        if(good) {
-            System.out.println("Hello "+fname+", you are allowed to enter the mall");
-        } else {
-            System.out.println("Sorry "+fname+" you are not allowed to enter the mall");
-        }
-    }
-}
-            </pre>
+            <pre>SOON TO BE PUBLIC - AVALABLE NOW ON ADVANCE SERVER</pre>
             <button class="copy-button" onclick="copyText('text5')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text6">
-            <div class="section-title">BLANK PA WAIT LNG</div>
+            <div class="section-title">Loading......</div>
             <pre></pre>
             <button class="copy-button" onclick="copyText('text6')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text7">
-            <div class="section-title">BLANK PA WAIT LNG</div>
+            <div class="section-title">Loading......</div>
             <pre></pre>
             <button class="copy-button" onclick="copyText('text7')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text8">
-            <div class="section-title">BLANK PA WAIT LNG</div>
+            <div class="section-title">Loading......</div>
             <pre></pre>
             <button class="copy-button" onclick="copyText('text8')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text9">
-            <div class="section-title">BLANK PA WAIT LNG</div>
+            <div class="section-title">Loading......</div>
             <pre></pre>
             <button class="copy-button" onclick="copyText('text9')">Copy Text</button>
         </div>
 
         <div class="text-section" id="text10">
-            <div class="section-title">BLANK PA WAIT LNG</div>
+            <div class="section-title">Loading......</div>
             <pre></pre>
             <button class="copy-button" onclick="copyText('text10')">Copy Text</button>
         </div>
-        <!-- Copy Box Template End -->
 
     </div>
 
-    <!-- Modal -->
+    <!-- Welcome Modal -->
     <div id="welcomeModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -474,7 +449,16 @@ public class Mall {
         </div>
     </div>
 
-    
+    <!-- Passcode Modal -->
+    <div id="passcodeModal" class="modal">
+        <div class="modal-content passcode-modal-content">
+            <span class="close" onclick="closePasscodeModal()">&times;</span>
+            <h2>Enter Passcode</h2>
+            <input type="text" id="passcodeInput" placeholder="Enter passcode">
+            <button onclick="checkPasscode()">Submit</button>
+            <div id="passcodeMessage" class="passcode-message"></div>
+        </div>
+    </div>
 
     <script>
         function toggleSidebar() {
@@ -506,15 +490,32 @@ public class Mall {
             modal.style.display = 'block';
         };
 
-        function startQuiz() {
-    const modal = document.getElementById('quizModal');
-    modal.style.display = 'block';
+        function startPasscodeModal() {
+            const modal = document.getElementById('passcodeModal');
+            modal.style.display = 'block';
+        }
+
+        function closePasscodeModal() {
+            const modal = document.getElementById('passcodeModal');
+            modal.style.display = 'none';
+        }
+
+        function checkPasscode() {
+    const passcodeInput = document.getElementById('passcodeInput').value;
+    const passcodeMessage = document.getElementById('passcodeMessage');
+    const correctPasscodes = ['bsit1b', 'ejayrosete']; // Array of valid passcodes
+
+    if (correctPasscodes.includes(passcodeInput)) {
+        passcodeMessage.style.color = 'green';
+        passcodeMessage.textContent = 'Access granted!';
+        // Add functionality for correct passcode here
+        window.location.href = 'private.html';
+    } else {
+        passcodeMessage.style.color = 'red';
+        passcodeMessage.textContent = 'Incorrect passcode. Please try again.';
+    }
 }
 
-function closeQuizModal() {
-    const modal = document.getElementById('quizModal');
-    modal.style.display = 'none';
-}
 
     </script>
 
