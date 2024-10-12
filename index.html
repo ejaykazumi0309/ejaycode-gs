@@ -499,6 +499,10 @@ public class ExercisesB {
             modal.style.display = 'none';
         }
 
+        function allowAccess() {
+            sessionStorage.setItem('canAccessPrivate', 'true');
+        }
+
         function checkPasscode() {
     const passcodeInput = document.getElementById('passcodeInput').value;
     const passcodeMessage = document.getElementById('passcodeMessage');
