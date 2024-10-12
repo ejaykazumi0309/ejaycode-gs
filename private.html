@@ -516,6 +516,14 @@ function closeQuizModal() {
     modal.style.display = 'none';
 }
 
+        const referrer = document.referrer;
+        const isValidReferrer = referrer.endsWith('index.html');
+
+        if (!isValidReferrer) {
+            // If not, redirect to index.html
+            window.location.href = 'index.html';
+        }
+
     </script>
 
 </body>
