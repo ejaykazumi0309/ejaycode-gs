@@ -85,7 +85,7 @@
     </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-        import { getDatabase, ref, set, remove, onChildAdded, onChildRemoved } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+        import { getDatabase, ref, set, remove, onChildAdded, onChildRemoved, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRFFJEQuj0T18iKDbqUnStiWEXRrV90gk",
@@ -111,24 +111,49 @@
 
         // TO SEND MESSAGES
         module.sendMsg = function sendMsg() {
-            var msg = msgTxt.value;
+            var msg = msgTxt.value.trim(); // Trim whitespace
+            if (msg === "") return; // Prevent sending empty messages
+
             var timestamp = new Date().getTime();
             set(ref(db, "messages/" + timestamp), {
                 msg: msg,
                 sender: sender
+            }).then(() => {
+                console.log("Message sent:", msg); // Log the sent message
+            }).catch((error) => {
+                console.error("Error sending message:", error);
             });
 
-            msgTxt.value = "";
+            msgTxt.value = ""; // Clear input
         }
 
         // TO RECEIVE MSG
         onChildAdded(ref(db, "messages"), (data) => {
-            if (data.val().sender == sender) {
-                messages.innerHTML += "<div style=justify-content:end class=outer id=" + data.key + "><div id=inner class=me>you : " + data.val().msg + "<button id=dltMsg onclick=module.dltMsg(" + data.key + ")>DELETE</button></div></div>";
-            } else {
-                messages.innerHTML += "<div class=outer id=" + data.key + "><div id=inner class=notMe>" + data.val().sender + " : " + data.val().msg + "</div></div>";
-            }
+            console.log("New message received:", data.val()); // Log incoming messages
+            displayMessage(data);
         });
+
+        // Load existing messages
+        onValue(ref(db, "messages"), (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                console.log("Existing message:", childSnapshot.val());
+                displayMessage(childSnapshot);
+            });
+        });
+
+        function displayMessage(childSnapshot) {
+            const data = childSnapshot.val();
+            if (data.sender == sender) {
+                messages.innerHTML += `<div style="justify-content:end" class="outer" id="${childSnapshot.key}">
+                    <div id="inner" class="me">you: ${data.msg}
+                    <button id="dltMsg" onclick="module.dltMsg('${childSnapshot.key}')">DELETE</button></div>
+                </div>`;
+            } else {
+                messages.innerHTML += `<div class="outer" id="${childSnapshot.key}">
+                    <div id="inner" class="notMe">${data.sender}: ${data.msg}</div>
+                </div>`;
+            }
+        }
 
         // TO DELETE MSG
         module.dltMsg = function dltMsg(key) {
@@ -138,7 +163,9 @@
         // WHEN MSG IS DELETED
         onChildRemoved(ref(db, "messages"), (data) => {
             var msgBox = document.getElementById(data.key);
-            messages.removeChild(msgBox);
+            if (msgBox) {
+                messages.removeChild(msgBox);
+            }
         });
     </script>
 </body>
