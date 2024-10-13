@@ -405,8 +405,34 @@ public class Main{
         <h2>Lesson 8 (Nested-If-Statement)</h1>
 
         <div class="text-section" id="text5">
-            <div class="section-title">Loading.......</div>
-            <pre></pre>
+            <div class="section-title">Teenager or Not (Nested If Statement)</div>
+            <pre>
+                 import java.util.*;
+
+public class main{
+    public static void main(String[] args){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Your Age: ");
+        int age = scanner.nextInt();
+
+        if(age < 13){
+            System.out.println("You are not yet teenager");
+        }
+        else{
+            if(age > 19){
+                System.out.println("You are not a teenager anymore");
+            }
+            else{
+                System.out.println("You are a teenager");
+            }
+        }
+
+    }
+}
+
+            </pre>
             <button class="copy-button" onclick="copyText('text5')">Copy Text</button>
         </div>
 
