@@ -390,37 +390,128 @@ public class ExercisesB {
         <h2>Lesson 7 (If Statement)</h2>
         <div class="text-section" id="text3">
             <div class="section-title">Teenager or Not! (Activity 1)</div>
-            <pre>SOON - AVALABLE NOW ON ADVANCE SERVER</pre>
+            <pre>
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Your First Name: ");
+        String fName = scanner.nextLine();
+        System.out.println("Enter Your Middle Name: ");
+        String mName = scanner.nextLine();
+        System.out.println("Enter Your Last Name: ");
+        String lName = scanner.nextLine();
+        System.out.println("Enter Your Gender Name: ");
+        String gender = scanner.nextLine();
+        System.out.println("Enter Your Age Name: ");
+        int age = scanner.nextInt();
+        if(age >= 13 && age <= 19){
+            System.out.println(fName+" "+mName+" "+lName+", is not a teenager anymore");
+        }
+        else{
+            System.out.println(fName+" "+mName+" "+lName+", is a teenager");
+        }
+    }
+}
+
+            </pre>
             <!--<button class="copy-button" onclick="copyText('text3')">Copy Text</button>-->
         </div>
 
         <div class="text-section" id="text4">
             <div class="section-title">Vowel & Consonant (Activity 2)</div>
-            <pre>SOON - AVALABLE NOW ON ADVANCE SERVER</pre>
+            <pre>
+import java.util.*;
+
+public class VowelOrConsonant {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Input an Alphabet: ");
+        char jaye = scanner.next().charAt(0);
+        jaye = Character.toLowerCase(jaye);
+        if (jaye == 'a' || jaye == 'e' || jaye == 'i' || jaye == 'o' || jaye == 'u') {
+            System.out.println("Input Letter is Vowel");
+        } else {
+            System.out.print("Input Letter is Consonant");
+        }
+    }
+}
+            </pre>
             <!--<button class="copy-button" onclick="copyText('text4')">Copy Text</button>-->
         </div>
 
         <div class="text-section" id="text5">
             <div class="section-title">Mall Entry Check (Activity 3)</div>
-            <pre>SOON TO BE PUBLIC - AVALABLE NOW ON ADVANCE SERVER</pre>
+            <pre>
+import java.util.*;
+
+public class Mall {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Your First Name: ");
+        String fname = scanner.nextLine();
+        System.out.print("Enter Your Middle Name: ");
+        String mname = scanner.nextLine();
+        System.out.print("Enter Your Last Name: ");
+        String lname = scanner.nextLine();
+        System.out.print("Enter Your Gender: ");
+        String gender = scanner.nextLine();
+        System.out.print("Enter Your Age: ");
+        int age = scanner.nextInt();
+        System.out.print("Are you fully vaccinated? (yes/no): ");
+        String vac = scanner.next();
+        boolean good = (age >= 18 && age <= 59) && vac.equalsIgnoreCase("yes");
+        if(good) {
+            System.out.println("Hello "+fname+", you are allowed to enter the mall");
+        } else {
+            System.out.println("Sorry "+fname+" you are not allowed to enter the mall");
+        }
+    }
+}
+            </pre>
             <!--<button class="copy-button" onclick="copyText('text5')">Copy Text</button>-->
         </div>
 
         <div class="text-section" id="text6">
             <div class="section-title">Positive or Negative (Activity 4)</div>
-            <pre>SOON - AVALABLE NOW ON ADVANCE SERVER</pre>
+            <pre>
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+     
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Number: ");
+        int number = scanner.nextInt();
+
+        if(number > 0){
+            System.out.println("Positive");
+        }
+        else{
+            System.out.println("Negative");
+        }
+
+
+
+    }
+}
+            </pre>
             <!--<button class="copy-button" onclick="copyText('text6')">Copy Text</button>-->
         </div>
+        <h2>Lesson 8 (Nested If Statement)</h2>
 
         <div class="text-section" id="text7">
-            <div class="section-title">Loading......</div>
-            <pre></pre>
+            <div class="section-title">Teenager or Not! (Nested If Statement)</div>
+            <pre>SOON - AVAILABLE NOW ON ADVANCE SERVER!</pre>
             <!--<button class="copy-button" onclick="copyText('text7')">Copy Text</button>-->
         </div>
 
         <div class="text-section" id="text8">
-            <div class="section-title">Loading......</div>
-            <pre></pre>
+            <div class="section-title">Highest Number (Activity 2)</div>
+            <pre>SOON - AVAILABLE NOW ON ADVANCE SERVER!</pre>
             <!--<button class="copy-button" onclick="copyText('text8')">Copy Text</button>-->
         </div>
 
@@ -446,6 +537,7 @@ public class ExercisesB {
             <p>Note: Gi himo ko ni para pang study dli para mag cheat2x ha! duklon jud tika. Use responsibly!</p>
             <br>
             <h3>Update:</h3>
+            <p>· Lesson 8 (??)</p>
             <p>· Removing on Copy Text Button (Kay d na mag study copy paste nlng)</p>
             <p>· Advance Server System</p>
             <p>· Quiz System (Advance Server)</p>
@@ -510,7 +602,7 @@ public class ExercisesB {
         function checkPasscode() {
     const passcodeInput = document.getElementById('passcodeInput').value;
     const passcodeMessage = document.getElementById('passcodeMessage');
-    const correctPasscodes = ['bsit1b', 'ejayrosete']; // Array of valid passcodes
+    const correctPasscodes = ['bsit1bnumber1', 'yaje']; // Array of valid passcodes
 
     if (correctPasscodes.includes(passcodeInput)) {
         passcodeMessage.style.color = 'green';
