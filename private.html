@@ -562,6 +562,10 @@ function closeQuizModal() {
     modal.style.display = 'none';
 }
 
+        if (!sessionStorage.getItem('visitedIndex')) {
+    window.location.href = 'index.html';
+  }
+
 
 
         
