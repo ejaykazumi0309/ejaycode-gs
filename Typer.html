@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Typing Race Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.7);
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #39ff14;
+            text-shadow: 0 0 20px #39ff14, 0 0 30px #39ff14;
+        }
+
+        #word-container {
+            font-size: 24px;
+            margin: 20px 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        input {
+            padding: 15px;
+            width: calc(100% - 40px);
+            font-size: 18px;
+            border: 2px solid #39ff14;
+            border-radius: 5px;
+            background: #1a1a1a;
+            color: #fff;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff007f;
+            outline: none;
+            background: #252525;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #ff007f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        button:hover {
+            background-color: #e6006d;
+            transform: scale(1.05);
+        }
+
+        .correct {
+            color: #39ff14;
+            text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+            transition: color 0.3s;
+        }
+
+        .incorrect {
+            color: #ff007f;
+            text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
+            transition: color 0.3s;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #39ff14;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.8);
+            animation: pop 0.5s;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            background-color: #39ff14;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: #32b84d;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animated background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255, 0, 127, 0.1), rgba(0, 0, 0, 0.9));
+            animation: pulsate 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulsate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>Cyberpunk Typing Race</h1>
+        <div id="word-container"></div>
+        <input type="text" id="user-input" placeholder="Start typing..." />
+        <button id="start-btn">Start</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- Modal for results -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Results</h2>
+            <p id="modal-text"></p>
+            <button class="close-btn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const paragraphs = [
+            "The greatest glory in living lies not in never falling, but in rising every time we fall. The way to get started is to quit talking and begin doing. Life is what happens when you're busy making other plans. Your time is limited, so don't waste it living someone else's life.",
+            "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful. The only limit to our realization of tomorrow will be our doubts of today.",
+            "In the end, it’s not the years in your life that count. It’s the life in your years. Life is really simple, but we insist on making it complicated. The purpose of our lives is to be happy.",
+            "You only live once, but if you do it right, once is enough. Life isn’t about finding yourself. Life is about creating yourself. The biggest adventure you can take is to live the life of your dreams.",
+            "It does not matter how slowly you go as long as you do not stop. Our greatest glory is not in never falling, but in rising every time we fall. The only impossible journey is the one you never begin."
+        ];
+
+        const wordContainer = document.getElementById('word-container');
+        const userInput = document.getElementById('user-input');
+        const startBtn = document.getElementById('start-btn');
+        const result = document.getElementById('result');
+        const modal = document.getElementById('modal');
+        const modalText = document.getElementById('modal-text');
+        const closeBtn = document.querySelector('.close-btn');
+
+        let currentParagraph = '';
+        let startTime;
+        let timerInterval;
+
+        function getRandomParagraph() {
+            return paragraphs[Math.floor(Math.random() * paragraphs.length)];
+        }
+
+        function startGame() {
+            userInput.value = '';
+            result.textContent = '';
+            currentParagraph = getRandomParagraph();
+            wordContainer.innerHTML = currentParagraph.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
+            userInput.focus();
+            startTime = new Date().getTime();
+            startTimer();
+        }
+
+        function startTimer() {
+            let elapsedTime = 0;
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                elapsedTime++;
+                updateResult(elapsedTime);
+            }, 1000);
+        }
+
+        function updateResult(elapsedTime) {
+            const typedText = userInput.value;
+            const totalWords = currentParagraph.split(' ').length;
+            const wordsTyped = typedText.trim().split(' ').filter(word => word).length;
+            const wpm = Math.floor((wordsTyped / elapsedTime) * 60);
+            result.innerHTML = `Time: ${elapsedTime} seconds | WPM: ${wpm}`;
+        }
+
+        function checkInput() {
+            const typedText = userInput.value;
+            const words = currentParagraph.split(' ');
+            const typedWords = typedText.split(' ');
+
+            words.forEach((word, index) => {
+                const wordElement = document.querySelectorAll('.word')[index];
+                if (typedWords[index] === word) {
+                    wordElement.classList.add('correct');
+                    wordElement.classList.remove('incorrect');
+                } else if (typedWords[index]) {
+                    wordElement.classList.add('incorrect');
+                    wordElement.classList.remove('correct');
+                }
+            });
+
+            if (typedText.trim() === currentParagraph) {
+                clearInterval(timerInterval);
+                const elapsedTime = Math.floor((new Date().getTime() - startTime) / 1000);
+                const totalWords = words.length;
+                const wpm = Math.floor((totalWords / elapsedTime) * 60);
+                modalText.innerHTML = `Correct!<br>Time taken: ${elapsedTime} seconds<br>WPM: ${wpm}`;
+                modal.style.display = 'flex';
+            }
+        }
+
+        startBtn.addEventListener('click', startGame);
+        userInput.addEventListener('input', checkInput);
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            startGame();
+        });
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                startGame();
+            }
+        };
+    </script>
+</body>
+</html>
