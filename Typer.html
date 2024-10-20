@@ -28,6 +28,7 @@
             max-width: 600px;
             width: 90%;
             backdrop-filter: blur(10px);
+            position: relative;
         }
 
         h1 {
@@ -96,6 +97,34 @@
             text-shadow: 0 0 10px #39ff14;
         }
 
+        /* Racing track */
+        .track {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #444;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .car {
+            position: absolute;
+            bottom: 10px;
+            width: 50px;
+            height: 30px;
+            clip-path: polygon(0 100%, 20% 0, 80% 0, 100% 100%);
+        }
+
+        .player-car {
+            background: #ff007f; /* Player car color */
+        }
+
+        .ai-car {
+            background: #39ff14; /* AI car color */
+            bottom: 50px; /* Position AI car above player car */
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -160,6 +189,10 @@
     <div class="background"></div>
     <div class="container">
         <h1>Ejay Typing Race (Random)</h1>
+        <div class="track">
+            <div class="car player-car" id="player-car"></div>
+            <div class="car ai-car" id="bot-car"></div>
+        </div>
         <div id="word-container"></div>
         <input type="text" id="user-input" placeholder="Start typing..." autocomplete="off" />
         <button id="start-btn">Start</button>
@@ -171,13 +204,14 @@
         <div class="modal-content">
             <h2>Results</h2>
             <p id="modal-text"></p>
+            <p id="ai-result"></p>
             <button class="close-btn">Close</button>
         </div>
     </div>
 
     <script>
         const paragraphs = [
-            "The greatest glory in living lies not in never falling, but in rising every time we fall. The way to get started is to quit talking and begin doing. Life is what happens when you're busy making other plans. Your time is limited, so don't waste it living someone else's life.",
+        "The greatest glory in living lies not in never falling, but in rising every time we fall. The way to get started is to quit talking and begin doing. Life is what happens when you're busy making other plans. Your time is limited, so don't waste it living someone else's life.",
             "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful. The only limit to our realization of tomorrow will be our doubts of today.",
             "In the end, it’s not the years in your life that count. It’s the life in your years. Life is really simple, but we insist on making it complicated. The purpose of our lives is to be happy.",
             "You only live once, but if you do it right, once is enough. Life isn’t about finding yourself. Life is about creating yourself. The biggest adventure you can take is to live the life of your dreams.",
@@ -190,11 +224,16 @@
         const result = document.getElementById('result');
         const modal = document.getElementById('modal');
         const modalText = document.getElementById('modal-text');
+        const aiResult = document.getElementById('ai-result');
         const closeBtn = document.querySelector('.close-btn');
 
         let currentParagraph = '';
         let startTime;
         let timerInterval;
+        let playerDistance = 0;
+        const trackWidth = document.querySelector('.track').clientWidth;
+        const playerCar = document.getElementById('player-car');
+        const botCar = document.getElementById('bot-car');
 
         function getRandomParagraph() {
             return paragraphs[Math.floor(Math.random() * paragraphs.length)];
@@ -207,7 +246,11 @@
             wordContainer.innerHTML = currentParagraph.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
             userInput.focus();
             startTime = new Date().getTime();
+            playerDistance = 0; // Reset player distance
+            playerCar.style.left = '10px'; // Reset player car position
+            botCar.style.left = '10px'; // Reset bot car position
             startTimer();
+            moveBotCar(); // Start moving the bot car
         }
 
         function startTimer() {
@@ -223,8 +266,27 @@
             const typedText = userInput.value;
             const totalWords = currentParagraph.split(' ').length;
             const wordsTyped = typedText.trim().split(' ').filter(word => word).length;
-            const wpm = Math.floor((wordsTyped / elapsedTime) * 60);
-            result.innerHTML = `Time: ${elapsedTime} seconds | WPM: ${wpm}`;
+            const completionPercentage = wordsTyped / totalWords;
+
+            playerDistance = Math.min(completionPercentage * (trackWidth - 60), trackWidth - 60); // Adjust distance based on progress
+            playerCar.style.left = playerDistance + 'px'; // Move player car
+            result.innerHTML = `Time: ${elapsedTime} seconds | Progress: ${Math.floor(completionPercentage * 100)}%`;
+        }
+
+        function moveBotCar() {
+            const totalDistance = trackWidth - 60; // Track width minus car width
+            const totalTime = 40; // Time in seconds for the bot to finish
+            const botSpeed = totalDistance / totalTime; // Calculate speed in pixels per second
+
+            let botPosition = 10; // Starting position of the bot car
+            const moveInterval = setInterval(() => {
+                if (botPosition < totalDistance) {
+                    botPosition += botSpeed / 60; // Move bot car
+                    botCar.style.left = botPosition + 'px'; // Update position
+                } else {
+                    clearInterval(moveInterval); // Stop moving when finished
+                }
+            }, 1000 / 60); // 60 frames per second
         }
 
         function checkInput() {
@@ -246,9 +308,8 @@
             if (typedText.trim() === currentParagraph) {
                 clearInterval(timerInterval);
                 const elapsedTime = Math.floor((new Date().getTime() - startTime) / 1000);
-                const totalWords = words.length;
-                const wpm = Math.floor((totalWords / elapsedTime) * 60);
-                modalText.innerHTML = `Correct!<br>Time taken: ${elapsedTime} seconds<br>WPM: ${wpm}`;
+                modalText.innerHTML = `You finished!<br>Time taken: ${elapsedTime} seconds`;
+                aiResult.innerHTML = `AI finished!<br>Progress: 100%`;
                 modal.style.display = 'flex';
             }
         }
