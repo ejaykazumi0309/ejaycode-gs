@@ -13,9 +13,21 @@
             padding: 50px;
             position: relative;
         }
-        h1 {
+        header {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
             margin-bottom: 30px;
+        }
+        h1 {
+            margin: 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        h2 {
+            margin: 10px 0 30px;
+            font-weight: normal;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
         }
         .top-played {
             display: flex;
@@ -68,11 +80,6 @@
             transform: translateY(-5px);
             background-color: rgba(255, 255, 255, 0.2);
         }
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -101,7 +108,10 @@
 
 <div id="particles-js"></div>
 
-<h1>Welcome to E Game Site!</h1>
+<header>
+    <h1>Welcome to E Game Site!</h1>
+    <h2>Play while learning Java and enhancing your typing speed.</h2>
+</header>
 
 <div class="top-played">
     <h2>Top Played</h2>
@@ -142,7 +152,7 @@
         <button onclick="location.href='Menu.html'">Play Game</button>
     </div>
     <div class="game">
-        <h2>Soon/h2>
+        <h2>Soon</h2>
         <button onclick="location.href='Menu.html'">Play Game</button>
     </div>
     <div class="game">
