@@ -3,55 +3,623 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E Codegs</title>
+    <title>E Code'gs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #212529;
+            color: #f8f9fa;
             margin: 0;
-            overflow: hidden; /* Prevent scrolling */
             display: flex;
-            justify-content: center;
-            align-items: center;
+            transition: margin-left 0.3s;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+        .sidebar {
+            background: #343a40;
+            color: #f8f9fa;
+            padding: 20px;
+            width: 250px;
             height: 100vh;
-            background-color: #000; /* Black background for better contrast */
-            position: relative; /* Enable absolute positioning for overlay */
+            position: fixed;
+            left: -250px;
+            visibility: hidden;
+            opacity: 0;
+            transition: left 0.3s, visibility 0.3s, opacity 0.3s;
         }
-        img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw; /* Full width */
-            height: 100vh; /* Full height */
-            object-fit: cover; /* Cover entire screen */
-            transform: translate(-50%, -50%); /* Center the image */
+        .sidebar.active {
+            left: 0;
+            visibility: visible;
+            opacity: 1;
         }
-        .overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white; /* Text color */
-            font-size: 2em; /* Text size */
-            text-align: center; /* Center the text */
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 20px; /* Padding around the text */
-            border-radius: 10px; /* Rounded corners */
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #007bff;
         }
-        audio {
-            display: none; /* Hide audio controls */
+        .sidebar p {
+            font-size: 1em;
+            line-height: 1.5;
         }
+        .social-icons {
+            margin-top: 20px;
+        }
+        .social-icons a {
+            color: #007bff;
+            margin-right: 15px;
+            font-size: 1.5em;
+            text-decoration: none;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            background: #343a40;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: margin-left 0.3s;
+            margin-left: 20px;
+        }
+        .text-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #495057;
+    border-radius: 5px;
+    background: #495057;
+    overflow: auto;
+    user-select: none; /* Make text unselectable */
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+}
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            position: sticky;
+            top: 0;
+            background: #495057;
+            z-index: 1;
+            padding: 10px 0;
+            color: #f8f9fa;
+        }
+        .copy-button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+        .toggle-button {
+            position: fixed;
+            left: 10px;
+            top: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .hamburger {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            display: block;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            background-color: #343a40;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 8px;
+            color: #f8f9fa;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #f8f9fa;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Passcode Modal Styles */
+        .passcode-modal-content {
+            background-color: #343a40;
+            padding: 20px;
+            border-radius: 8px;
+            color: #f8f9fa;
+        }
+        .passcode-modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #495057;
+            border-radius: 5px;
+        }
+        .passcode-modal-content button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .passcode-modal-content button:hover {
+            background-color: #0056b3;
+        }
+        .passcode-message {
+            margin-top: 10px;
+        }
+
+        .quiz-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 60px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: bounce 2s infinite;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .quiz-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .quiz-button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .advance-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+    z-index: 1000;
+}
+
+.advance-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.advance-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.advance-button {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .advance-button {
+        padding: 8px 15px; /* Smaller padding for smaller screens */
+        font-size: 0.9em;   /* Smaller font size */
+    }
+}
+
+/* Additional style for h1 title */
+h1 {
+    margin-top: 80px; /* Adjust the margin to avoid overlap with the button */
+}
+
+
     </style>
 </head>
 <body>
-    <img src="igit.png" alt="A beautiful photo">
-    <div class="overlay">
-        UNDER MAINTENANCE<br>
-        HOPE YOU UNDERSTAND<br>
-        STAY TUNED FOR BETTER UPDATES<br>
-        BYE NIGGAS HAHAHAHA 🖕
+
+    <button class="toggle-button" onclick="toggleSidebar()">
+        <div class="hamburger"></div>
+        <div class="hamburger"></div>
+        <div class="hamburger"></div>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <h2>About the Owner</h2>
+        <p><b>Name:</b> Ejay Rosete</p>
+        <p><b>Email:</b> Confidential</p>
+        <p><b>Bio:</b> Sharing is caring!</p>
+        <p><b>TIPS:</b><br> Basaha ang module/ppt then e try ug solve kung d nimo makaya then sabta ang code dria ayaw lng basta kay copy and paste!</p>
+        <p></p>
+        <h3>Credits:</h3></p> AI For JavaScript para mo gana ang Copy Text button and Side Panel the rest is ako na specialy code and Design Thanks!</p>
+        <h3>BETA TESTER:</h3>
+        <p>Edward Chavez<br> Raymund Baisa</p>
+        <br>
+        <p>E-Code'gs App for Android:</p>
+        <a href="E Codegs V2.apk" target="_blank">
+            <img src="android.png" alt="Download App" style="width: 35px; height: auto; vertical-align: middle; margin-left: 200px; margin-top: -80px;">
+        </a>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/ejay.rosete.14/" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.youtube.com/@ejaykazumi" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
     </div>
-    <audio autoplay loop>
-        <source src="shesh.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+
+    <div class="container">
+        <button class="advance-button" onclick="startPasscodeModal()">Advance Server</button>
+        <h1>Ejay Code'gs</h1>
+        <span style="display: block; text-align: right; color: #f8f9fa; margin: 0; font-size: 0.8em; position: absolute; top: 0; right: 0; margin-right: 50px;">Public Server</span>
+
+        <button class="quiz-button" onclick="location.href='Menu.html'">▶</button>
+
+        <h2>Lesson 6 (Java Operators)</h2>
+        <div class="text-section" id="text1">
+            <div class="section-title">Exercises A (Grading)</div>
+            <pre>
+import java.util.*;
+
+public class ExercisesA {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Your Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Your Prelim Score: ");
+        int prelim = scanner.nextInt();
+        System.out.print("Enter Your MidTerm Score: ");
+        int midterm = scanner.nextInt();
+        System.out.print("Enter Your Final Score: ");
+        int finalscore = scanner.nextInt();
+        double average = (prelim * 0.3)+(midterm * 0.3)+(finalscore * 0.4);
+        String remarks = (average >= 75) ? "Congratulations "+name+", you passed with an average of "+average :
+                                            "Sorry "+name+", you failed with an average of "+average;
+        System.out.println(remarks);
+    }
+}
+            </pre>
+            <!--<button class="copy-button" onclick="copyText('text1')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text2">
+            <div class="section-title">Exercises B (Salary)</div>
+            <pre>
+import java.util.*;
+
+public class ExercisesB {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Your Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Your Worked Days: ");
+        int wday = scanner.nextInt();
+        System.out.print("Enter Your Rate Per Day: ");
+        double rate = scanner.nextDouble();
+        System.out.print("Enter Your GSIS Deduction: ");
+        double gdeduction = scanner.nextDouble();
+        System.out.print("Enter Your PhilHealth Deduction: ");
+        double pdeduction = scanner.nextDouble();
+        double salary = (wday*rate)-(pdeduction+gdeduction);
+        String remarks = (salary >= 10000) ? "Hi "+name+", your salary is "+salary+", your salary is above minimum" :
+                                            "Hello "+name+", your salary is "+salary+", your salary is below minimum";
+        System.out.println(remarks);
+    }
+}
+
+
+            </pre>
+            <!--<button class="copy-button" onclick="copyText('text2')">Copy Text</button>-->
+        </div>
+
+        <h2>Lesson 7 (If Statement)</h2>
+        <div class="text-section" id="text3">
+            <div class="section-title">Teenager or Not! (Activity 1)</div>
+            <pre>
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Your First Name: ");
+        String fName = scanner.nextLine();
+        System.out.println("Enter Your Middle Name: ");
+        String mName = scanner.nextLine();
+        System.out.println("Enter Your Last Name: ");
+        String lName = scanner.nextLine();
+        System.out.println("Enter Your Gender Name: ");
+        String gender = scanner.nextLine();
+        System.out.println("Enter Your Age Name: ");
+        int age = scanner.nextInt();
+        if(age >= 13 && age <= 19){
+            System.out.println(fName+" "+mName+" "+lName+", is not a teenager anymore");
+        }
+        else{
+            System.out.println(fName+" "+mName+" "+lName+", is a teenager");
+        }
+    }
+}
+
+            </pre>
+            <!--<button class="copy-button" onclick="copyText('text3')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text4">
+            <div class="section-title">Vowel & Consonant (Activity 2)</div>
+            <pre>
+import java.util.*;
+
+public class VowelOrConsonant {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Input an Alphabet: ");
+        char jaye = scanner.next().charAt(0);
+        jaye = Character.toLowerCase(jaye);
+        if (jaye == 'a' || jaye == 'e' || jaye == 'i' || jaye == 'o' || jaye == 'u') {
+            System.out.println("Input Letter is Vowel");
+        } else {
+            System.out.print("Input Letter is Consonant");
+        }
+    }
+}
+            </pre>
+            <!--<button class="copy-button" onclick="copyText('text4')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text5">
+            <div class="section-title">Mall Entry Check (Activity 3)</div>
+            <pre>
+import java.util.*;
+
+public class Mall {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Your First Name: ");
+        String fname = scanner.nextLine();
+        System.out.print("Enter Your Middle Name: ");
+        String mname = scanner.nextLine();
+        System.out.print("Enter Your Last Name: ");
+        String lname = scanner.nextLine();
+        System.out.print("Enter Your Gender: ");
+        String gender = scanner.nextLine();
+        System.out.print("Enter Your Age: ");
+        int age = scanner.nextInt();
+        System.out.print("Are you fully vaccinated? (yes/no): ");
+        String vac = scanner.next();
+        boolean good = (age >= 18 && age <= 59) && vac.equalsIgnoreCase("yes");
+        if(good) {
+            System.out.println("Hello "+fname+", you are allowed to enter the mall");
+        } else {
+            System.out.println("Sorry "+fname+" you are not allowed to enter the mall");
+        }
+    }
+}
+            </pre>
+            <!--<button class="copy-button" onclick="copyText('text5')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text6">
+            <div class="section-title">Positive or Negative (Activity 4)</div>
+            <pre>
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+     
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Number: ");
+        int number = scanner.nextInt();
+
+        if(number > 0){
+            System.out.println("Positive");
+        }
+        else{
+            System.out.println("Negative");
+        }
+
+
+
+    }
+}
+            </pre>
+            <!--<button class="copy-button" onclick="copyText('text6')">Copy Text</button>-->
+        </div>
+        <h2>Lesson 8 (Nested If Statement)</h2>
+
+        <div class="text-section" id="text7">
+            <div class="section-title">Teenager or Not! (Nested If Statement)</div>
+            <pre>SOON - AVAILABLE NOW ON ADVANCE SERVER!</pre>
+            <!--<button class="copy-button" onclick="copyText('text7')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text8">
+            <div class="section-title">Highest Number (Activity 2)</div>
+            <pre>SOON - AVAILABLE NOW ON ADVANCE SERVER!</pre>
+            <!--<button class="copy-button" onclick="copyText('text8')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text9">
+            <div class="section-title">Loading......</div>
+            <pre></pre>
+            <!--<button class="copy-button" onclick="copyText('text9')">Copy Text</button>-->
+        </div>
+
+        <div class="text-section" id="text10">
+            <div class="section-title">Loading......</div>
+            <pre></pre>
+            <!--<button class="copy-button" onclick="copyText('text10')">Copy Text</button>-->
+        </div>
+
+    </div>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Welcome to Ejay Code'gs!</h2>
+            <p>Note: Gi himo ko ni para pang study dli para mag cheat2x ha! duklon jud tika. Use responsibly!</p>
+            <br>
+            <h3>Update:</h3>
+            <p>· E Games</p>
+            <p>· Lesson 8 (??)</p>
+            <p>· Removing on Copy Text Button (Kay d na mag study copy paste nlng)</p>
+            <p>· Advance Server System</p>
+            <p>· New Lesson(Advance Server)</p>
+            <br>
+            <p>Any Concern about the update or Suggestion contact me here <a href="https://www.facebook.com/ejay.rosete.14/" target="_blank">Click Me</a></p>
+            
+        </div>
+    </div>
+
+    <!-- Passcode Modal -->
+    <div id="passcodeModal" class="modal">
+        <div class="modal-content passcode-modal-content">
+            <span class="close" onclick="closePasscodeModal()">&times;</span>
+            <h2>Enter Passcode</h2><p>Passcode? Ask Ejay!</p>
+            <input type="text" id="passcodeInput" placeholder="Enter passcode">
+            <button onclick="checkPasscode()">Submit</button>
+            <div id="passcodeMessage" class="passcode-message"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+            const container = document.querySelector('.container');
+            container.style.marginLeft = sidebar.classList.contains('active') ? '270px' : '20px';
+        }
+
+        function copyText(textId) {
+            const textElement = document.getElementById(textId).querySelector('pre');
+            const range = document.createRange();
+            range.selectNode(textElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Text copied to clipboard! Thanks for using Ejay Codegs');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('welcomeModal');
+            modal.style.display = 'none';
+        }
+
+        // Show the modal when the page loads
+        window.onload = function() {
+            const modal = document.getElementById('welcomeModal');
+            modal.style.display = 'block';
+        };
+
+        function startPasscodeModal() {
+            const modal = document.getElementById('passcodeModal');
+            modal.style.display = 'block';
+        }
+
+        function closePasscodeModal() {
+            const modal = document.getElementById('passcodeModal');
+            modal.style.display = 'none';
+        }
+
+        function checkPasscode() {
+    const passcodeInput = document.getElementById('passcodeInput').value;
+    const passcodeMessage = document.getElementById('passcodeMessage');
+    const correctPasscodes = ['bsit1bnumber1', 'yaje']; // Array of valid passcodes
+
+    if (correctPasscodes.includes(passcodeInput)) {
+        passcodeMessage.style.color = 'green';
+        passcodeMessage.textContent = 'Access granted!';
+        // Add functionality for correct passcode here
+        window.location.href = 'private.html';
+    } else {
+        passcodeMessage.style.color = 'red';
+        passcodeMessage.textContent = 'Incorrect passcode. Please try again.';
+    }
+}
+
+        sessionStorage.setItem('visitedIndex', 'true');
+
+
+
+    </script>
+
 </body>
 </html>
